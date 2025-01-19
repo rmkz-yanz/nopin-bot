@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Settings</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <h1>Settings</h1>
+        <div class="form-group-total">
+            <label for="chat-id">Chat ID Telegram:</label>
+            <input
+                class="seting"
+                type="text"
+                id="chat-id"
+                placeholder="Masukan Chat ID"
+            />
+        </div>
+        <button id="save-chat-id" type="button">Save Chat ID</button>
+        
+        <div class="form-group-total">
+          <label for="chat-id">Cara mendapatkan Chat ID:</label><br>
+          <label for="chat-id">1. cari bot telegram yg bernama @myidbot<br> 2. klik START
+          <br> 3. ketik /getid</label><br>
+          
+        </div>
+
+    <script>
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const cname = name + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(cname) == 0) {
+                    return c.substring(cname.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        document.getElementById('save-chat-id').addEventListener('click', () => {
+            const chatId = document.getElementById('chat-id').value;
+            setCookie('chatId', chatId, 365);
+            Swal.fire({
+                title: 'Success',
+                text: 'Chat ID saved!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+
+        window.onload = () => {
+            const savedChatId = getCookie('chatId');
+            if (savedChatId) {
+                document.getElementById('chat-id').value = savedChatId;
+            }
+        };
+    </script>
+</html>

@@ -83,27 +83,29 @@
         </button>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
     <script>
-        // Automatically get the chat ID from the user who runs the miniapp
-        function getChatIdFromUser() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('chat_id');
-        }
+        // Initialize Telegram WebApp
+        const tg = window.Telegram.WebApp;
+        tg.ready();
 
-        window.onload = () => {
-            const chatId = getChatIdFromUser();
-            if (chatId) {
-                document.cookie = `chatId=${chatId};path=/`;
-            } else {
-                Swal.fire({
-                    title: 'Chat ID tidak ditemukan',
-                    text: 'Silakan jalankan miniapp ini dari bot Telegram.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
-        };
+        // Get User Data
+        const user = tg.initDataUnsafe.user;
+        const chatId = user?.id;
+
+        // Display User Data
+        if (chatId) {
+            document.cookie = `chatId=${chatId};path=/`;
+            document.getElementById('info').innerText = `Your Chat ID: ${chatId}`;
+        } else {
+            Swal.fire({
+                title: 'Chat ID tidak ditemukan',
+                text: 'Silakan jalankan miniapp ini dari bot Telegram.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
     </script>
     </body>
 </html>

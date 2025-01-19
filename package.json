@@ -1,0 +1,14 @@
+{
+  "name": "penghitung-produk",
+  "version": "1.0.0",
+  "description": "A miniapp for calculating product prices and sending data to a Telegram bot.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1"
+  }
+}

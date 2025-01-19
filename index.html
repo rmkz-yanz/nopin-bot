@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Kalkulator</title>
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            .product {
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Kalkulator Harga Produk</h1>
+
+        <div id="product-container">
+            <div class="product form-group">
+                <label>Nama Produk: </label>
+                <input
+                    type="text"
+                    class="product-name"
+                    placeholder="Masukan nama produk"
+                />
+                <div class="harga-jumlah">
+                    <div>
+                        <label>Harga</label>
+                        <input
+                            type="text"
+                            class="price formatted-input"
+                            placeholder="Masukan harga"
+                            oninput="formatNumberInput(this)"
+                            inputmode="numeric"
+                        />
+                    </div>
+                    <div>
+                        <label>Jumlah</label>
+                        <input
+                            type="number"
+                            class="quantity"
+                            placeholder="Jumlah produk"
+                            min="0"
+                            step="1"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="add-product" type="button">+ Tambah Product</button>
+
+        <div class="form-group-total">
+                <label>Jumlah Total: </label>
+                <span id="total-amount">0.00</span>
+        </div>
+
+        <button id="calculate-total" type="button">Total</button>
+
+        <div class="form-group-cash">
+            <label>Uang Cash: </label>
+            <input
+                type="text"
+                id="cash-given"
+                class="formatted-input"
+                placeholder="Jumlah Uang"
+                oninput="formatNumberInput(this)"
+                inputmode="numeric"
+            />
+
+            <label>Kembalian: </label>
+
+            <span id="change">0.00</span>
+        </div>
+
+        <button id="calculate-change" type="button">Hitung kembalian</button>
+        <button id="send-to-bot" type="button" style="display: none">
+            Kirim ke Bot
+        </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
+    <script>
+        // Automatically get the chat ID from the user who runs the miniapp
+        function getChatIdFromUser() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('chat_id');
+        }
+
+        window.onload = () => {
+            const chatId = getChatIdFromUser();
+            if (chatId) {
+                document.cookie = `chatId=${chatId};path=/`;
+            } else {
+                Swal.fire({
+                    title: 'Chat ID tidak ditemukan',
+                    text: 'Silakan jalankan miniapp ini dari bot Telegram.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        };
+    </script>
+    </body>
+</html>

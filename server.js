@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 
 const app = express();
 const port = process.env.PORT || 3000;
-const token = 'YOUR_TELEGRAM_BOT_TOKEN';
+const token = '7533623731:AAEOfprbcXTbUNru1W833tX-VOvxzk11Qyc';
 const apiUrl = `https://api.telegram.org/bot${token}`;
 
 app.use(bodyParser.json());
